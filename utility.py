@@ -2,8 +2,6 @@
 """
 utility.py is a collection of methods that assist in reading, writing, and 
 formatting text strings, such as tweets.
-
-
 """
 
 def returninfo(address, info="ALL"):
@@ -19,7 +17,10 @@ def returninfo(address, info="ALL"):
             "USER": returns username
             "PASS": returns password
             "API": returns API key    
-            "ALL": returns username, password, and API
+            "SECRET": returns secret API key
+            "ACCESS": returns access key
+            "SECACCESS": returns secret access key
+            "ALL": returns username, password, API, and secret API
     """
     infofile = open(address, 'r').read() #opens file, returns as string
     
@@ -46,7 +47,31 @@ def returninfo(address, info="ALL"):
             return infofile[start:end]
         except ValueError:
             print "Error: Invalid File Format"
-            
+    
+    elif (info == "SECRET"):
+        try:
+            start = infofile.index("(secret)") + len ("(secret)")
+            end = infofile.index("(secretend)")
+            return infofile[start:end]
+        except ValueError:
+                print "Error: Invalid File Format"
+    
+    elif (info == "ACCESS"):
+        try:
+            start = infofile.index("(access)") + len ("(access)")
+            end = infofile.index("(accessend)")
+            return infofile[start:end]
+        except ValueError:
+                print "Error: Invalid File Format"
+        
+    elif (info == "SECACCESS"):
+        try:
+            start = infofile.index("(accesssecret)") + len ("(accesssecret)")
+            end = infofile.index("(accesssecretend)")
+            return infofile[start:end]
+        except ValueError:
+                print "Error: Invalid File Format"
+
     elif (info == "ALL"):
         try:
             userstart = infofile.index("(user)") + len("(user)")
@@ -60,6 +85,20 @@ def returninfo(address, info="ALL"):
             apistart = infofile.index("(api)") + len("(api)")
             apiend = infofile.index("(apiend)")
             print ("API: " + infofile[apistart:apiend])
+            
+            secretstart = infofile.index("(secret)") + len ("(secret)")
+            secretend = infofile.index("(secretend)")
+            print ("SECRET: ") + infofile[secretstart:secretend]
+            
+            accessstart = infofile.index("(access)") + len ("(access)")
+            accessend = infofile.index("(accessend)")
+            print ("ACCESS: ") + infofile[accessstart:accessend]
+            
+            accesssecretstart = infofile.index("(accesssecret)") + len (
+            "(accesssecret)")
+            accesssecretend = infofile.index("(accesssecretend)")
+            print ("ACCESS SECRET: ") + infofile[accesssecretstart:
+                accesssecretend]
         except ValueError:
             print "Error: Invalid File Format"
             
