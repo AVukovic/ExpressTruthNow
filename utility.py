@@ -1,10 +1,12 @@
 
 """
-utility.py is a collection of methods that assist in reading, writing, and 
-formatting text strings, such as tweets.
+utility.py is a collection of methods that assist with application needs,
+such as reading & writing strings as well as twitter API operations.
 """
 
-def returninfo(address, info="ALL"):
+import tweepy
+
+def returninfo(address, info = "ALL"):
     """ 
     Reads the info file provided, and returns relevant information based on 
     user request.
@@ -21,6 +23,8 @@ def returninfo(address, info="ALL"):
             "ACCESS": returns access key
             "SECACCESS": returns secret access key
             "ALL": returns username, password, API, and secret API
+            
+    Returns nothing.
     """
     infofile = open(address, 'r').read() #opens file, returns as string
     
@@ -103,7 +107,53 @@ def returninfo(address, info="ALL"):
             print "Error: Invalid File Format"
             
     else: print ("Error: Invalid File Format")
+    
 
+def login():
+    """
+    Allows access of twitter API by fetching info file from the user, and 
+    logging them in through reading of the info file.
+    
+    No args.
+    
+    Returns a twitter API object.
+    
+    """
+    print ("Welcome to ExpressTruthNow! To access twitter, please enter " + 
+        "the path of the information login file. (use '/' in path!)")
+
+    path = raw_input("Enter url of info file: ")
+
+    key = returninfo(path, "API")
+    secret = returninfo(path, "SECRET")
+    access = returninfo(path, "ACCESS")
+    secaccess = returninfo(path, "SECACCESS")                          
+
+    auth = tweepy.OAuthHandler(key, secret)
+    auth.set_access_token(access, secaccess)
+
+    print "Login Successful."
+    
+    return(tweepy.API(auth))
+    
+def get_tweets(user, num = 30):
+    """
+    Fetches tweets from the user, and stores the tweets in a list. 
+    
+    Args:
+        user: tweepy API object (twitter user)
+        
+        num: number of tweets to fetch. Default is 30.
+    
+    Returns a list of tweets. 
+    
+    """
+    tweets = []
+    
+    for tweet in user.home_timeline(count = num):
+            tweets.append(tweet.text)
+    return tweets
+    
             
         
         
