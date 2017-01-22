@@ -9,4 +9,3 @@ tweets = utility.get_tweets(utility.login())
 for tweet in tweets:
     print tweet
     print "\n"
-

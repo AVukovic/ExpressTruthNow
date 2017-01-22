@@ -5,6 +5,7 @@ such as reading & writing strings as well as twitter API operations.
 """
 
 import tweepy
+import re
 
 def returninfo(address, info = "ALL"):
     """ 
@@ -124,12 +125,12 @@ def login():
 
     path = raw_input("Enter url of info file: ")
 
-    key = returninfo(path, "API")
-    secret = returninfo(path, "SECRET")
-    access = returninfo(path, "ACCESS")
-    secaccess = returninfo(path, "SECACCESS")                          
+    key = returninfo(path, "API") # API Key
+    secret = returninfo(path, "SECRET") # API authentication
+    access = returninfo(path, "ACCESS") # Request Key
+    secaccess = returninfo(path, "SECACCESS") # Request authentication                     
 
-    auth = tweepy.OAuthHandler(key, secret)
+    auth = tweepy.OAuthHandler(key, secret) 
     auth.set_access_token(access, secaccess)
 
     print "Login Successful."
@@ -138,7 +139,8 @@ def login():
     
 def get_tweets(user, num = 30):
     """
-    Fetches tweets from the user, and stores the tweets in a list. 
+    Fetches tweets from the user, and stores the tweets in a list. Tweets are
+    scrubbed of links. 
     
     Args:
         user: tweepy API object (twitter user)
@@ -151,7 +153,9 @@ def get_tweets(user, num = 30):
     tweets = []
     
     for tweet in user.home_timeline(count = num):
-            tweets.append(tweet.text)
+            edited_tweet = tweet.text
+            edited_tweet = re.sub(r"http\S+", "", edited_tweet)
+            tweets.append(edited_tweet)
     return tweets
     
             
