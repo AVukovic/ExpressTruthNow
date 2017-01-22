@@ -15,8 +15,8 @@ def returninfo(address, info = "ALL"):
     Args:
         path: file destination (str)
         
-        info: specific piece of information to return. Potential information to
-        return includes:
+        info: specific piece of information to return. Default is "ALL". 
+        Potential information to return includes:
             "USER": returns username
             "PASS": returns password
             "API": returns API key    
@@ -24,6 +24,7 @@ def returninfo(address, info = "ALL"):
             "ACCESS": returns access key
             "SECACCESS": returns secret access key
             "ALL": returns username, password, API, and secret API
+            
             
     Returns nothing.
     """
@@ -154,7 +155,7 @@ def get_tweets(user, num = 30):
     
     for tweet in user.home_timeline(count = num):
             edited_tweet = tweet.text
-            edited_tweet = re.sub(r"http\S+", "", edited_tweet)
+            edited_tweet = re.sub(r"http\S+", "", edited_tweet) #regex scrub
             tweets.append(edited_tweet)
     return tweets
     
