@@ -7,5 +7,6 @@ import utility
 
 tweets = utility.get_tweets(utility.login())
 for tweet in tweets:
-    print tweet
+    print (tweet.encode("utf-8"))
+    #added utf-8 enconding 
     print "\n"
