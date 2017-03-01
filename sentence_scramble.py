@@ -43,7 +43,7 @@ def write_file():
             
         
         
-        text_file.close()
+        text_file.close() 
         
     
 write_file()

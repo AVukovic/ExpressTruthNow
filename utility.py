@@ -124,12 +124,11 @@ def login():
     print ("Welcome to ExpressTruthNow! To access twitter, please enter " + 
         "the path of the information login file. (use '/' in path!)")
 
-    path = raw_input("Enter url of info file: ")
-
+    path = ('C:/Users/Evan/Desktop/Markov_Bot/markoventry/info.txt')
     key = returninfo(path, "API") # API Key
     secret = returninfo(path, "SECRET") # API authentication
     access = returninfo(path, "ACCESS") # Request Key
-    secaccess = returninfo(path, "SECACCESS") # Request authentication                     
+    secaccess = returninfo(path, "SECACCESS") # Request authentication
 
     auth = tweepy.OAuthHandler(key, secret) 
     auth.set_access_token(access, secaccess)
@@ -138,7 +137,7 @@ def login():
     
     return(tweepy.API(auth))
     
-def get_tweets(user, num = 30):
+def get_tweets(user, num = 200):
     """
     Fetches tweets from the user, and stores the tweets in a list. Tweets are
     scrubbed of links. 
@@ -155,9 +154,11 @@ def get_tweets(user, num = 30):
     
     for tweet in user.home_timeline(count = num):
             edited_tweet = tweet.text
-            edited_tweet = re.sub(r"http\S+", "", edited_tweet) #regex scrub
+            edited_tweet = re.sub(r"http\S+", ".", edited_tweet) #regex scrub
             tweets.append(edited_tweet)
     return tweets
+
+
     
             
         
