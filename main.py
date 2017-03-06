@@ -4,16 +4,16 @@ main.py is the main script for running and interacting with the ETS twitter.
 """
 
 import utility
-import sentence_scramble
+import codecs
 
-tweets = utility.get_tweets(utility.login(), num=100)
-new_tweets = str(tweets)
-print "NEW TWEETS\n\n\n"
-print new_tweets
-print "TWEETS"
+tweets = utility.get_tweets(utility.login())
 for tweet in tweets:
-    #print (tweet.encode("utf-8"))
+    
+    f = codecs.open('tweet', encoding='utf-8', mode='w+')
+    #tweet.encode('ascii')
+    f.write(u'tweet''.')
+    #print (tweet)
+    #.encode("utf-8"))
+    #^ in regards to this above line of code. It is designed to after tweet in the parenthesis on line 10. I am taking it out for the moment to work with some library errors when trying to print tweets
     #added utf-8 enconding 
     print "\n"
-print "MARKOV"
-sentence_scramble.write_file(new_tweets)

@@ -154,7 +154,10 @@ def get_tweets(user, num = 200):
     
     for tweet in user.home_timeline(count = num):
             edited_tweet = tweet.text
-            edited_tweet = re.sub(r"http\S+", ".", edited_tweet) #regex scrub
+            #edited_tweet = re.sub(r"http\S+", ".", edited_tweet) #regex scrub
+            edited_tweet = edited_tweet.encode(encoding='UTF-8', errors='Ignore') #this line contains Evans mad scientist experiment. Its name is Dr. Evans Monster
+            #ok, theres gunna be some wonky stuff Im about to try here with encoding
+            #the error was here, put a period in between every tweet so markov can identify different tweets from one another
             tweets.append(edited_tweet)
     return tweets
 
