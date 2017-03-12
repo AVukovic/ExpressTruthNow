@@ -23,8 +23,7 @@ def write_file():
     
         text_file.write (str(tweets)[1:-1])
         
-        #writes tweets without the "[]" at the beginning and the end. Perhaps the "None" error is happening here and below it?
-        #ok, definitetly not happening in the above code. That leaves the below
+      
         
         with file ('C:/Users/Evan/Desktop/Markov_Bot/markovwrite/markov_sentences.txt', 'r') as f:
             text = f.read()
@@ -36,13 +35,8 @@ def write_file():
         
         for i in range(5):
             print(text_model.make_short_sentence(140, tries=100))
-            #so either the hiccup is happening here or 4 lines above this comment. Or maybe something is wrong with the path itself. Im not really sure why its returning "None"
-        
-            #ok, further poking and prodding reveals that the code is in fact compiling and attempting to read a file. However it is defaulting to none as seen in the chain code.
-            #however it is unable to make anything of what its reading and returning nothing as a result. Maybe its not liking how the text is formatted? Im betting thats going to be the problem
             
-        
-        
+            #got the "None" error fixed! see utility file for where it was fixed
         text_file.close() 
         
     
