@@ -7,6 +7,9 @@ such as reading & writing strings as well as twitter API operations.
 import tweepy
 import re
 
+folderlink = "C:/Users/alexv/Documents/ETSMedia/" 
+#change this path depending on user.
+
 def returninfo(address, info = "ALL"):
     """ 
     Reads the info file provided, and returns relevant information based on 
@@ -124,7 +127,7 @@ def login():
     print ("Welcome to ExpressTruthNow! To access twitter, please enter " + 
         "the path of the information login file. (use '/' in path!)")
 
-    path = ('C:/Users/Evan/Desktop/Markov_Bot/markoventry/info.txt')
+    path = (folderlink + "/info.txt")
     key = returninfo(path, "API") # API Key
     secret = returninfo(path, "SECRET") # API authentication
     access = returninfo(path, "ACCESS") # Request Key
@@ -153,9 +156,12 @@ def get_tweets(user, num = 200):
     tweets = []
     
     for tweet in user.home_timeline(count = num):
-            edited_tweet = tweet.text
-            edited_tweet = re.sub(r"http\S+", ".", edited_tweet) #regex scrub
-            tweets.append(edited_tweet)
+        #if tweet.entities [tweepy.models.Media][0]['type']=='photo':
+        edited_tweet = tweet.text
+              #edited_tweet = re.sub(r"http\S+", ".", edited_tweet) #regex scrub
+        edited_tweet = edited_tweet.encode(encoding='UTF-8', errors='Ignore') 
+            #this line contains Evans mad scientist experiment. Its name is Dr. Evans Monster
+        tweets.append(edited_tweet)
     return tweets
 
 
