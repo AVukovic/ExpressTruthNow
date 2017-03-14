@@ -20,7 +20,7 @@ def write_file(tweets):
     
         #this is the destination of the corpus as declared in the chain function of markovify
     
-        text_file.write (str(tweets)[1:-1])
+        text_file.write (tweets[1:-1])
         
         #writes tweets without the "[]" at the beginning and the end. Perhaps the "None" error is happening here and below it?
         #ok, definitetly not happening in the above code. That leaves the below

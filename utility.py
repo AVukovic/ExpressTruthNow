@@ -5,7 +5,7 @@ such as reading & writing strings as well as twitter API operations.
 """
 
 import tweepy
-import re
+import markovify
 
 folderlink = "C:/Users/alexv/Documents/ETSMedia/" 
 #change this path depending on user.
@@ -156,13 +156,31 @@ def get_tweets(user, num = 200):
     tweets = []
     
     for tweet in user.home_timeline(count = num):
-        #if tweet.entities [tweepy.models.Media][0]['type']=='photo':
         edited_tweet = tweet.text
-              #edited_tweet = re.sub(r"http\S+", ".", edited_tweet) #regex scrub
         edited_tweet = edited_tweet.encode(encoding='UTF-8', errors='Ignore') 
-            #this line contains Evans mad scientist experiment. Its name is Dr. Evans Monster
         tweets.append(edited_tweet)
     return tweets
+    
+def write_file(tweets):
+    """
+    Writes the tweets to a text file, line-by-line.
+    
+    Args:
+        tweets: list of (str) tweets
+        
+    Returns nothing.
+    """
+    with open((folderlink + "markov_sentences.txt"), "w") as text_file:
+        for tweet in tweets:
+            text_file.write (tweet + '\n')
+    with file ((folderlink + "markov_sentences.txt"), 'r') as f:
+        text = f.read()
+    text_model = markovify.NewlineText(text)
+    print "model successful \n\n\n\n"
+    for i in range(5):
+        print(text_model.make_short_sentence(140, tries=100))
+    text_file.close()
+        
 
 
     
